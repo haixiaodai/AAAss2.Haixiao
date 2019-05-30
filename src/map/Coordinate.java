@@ -32,6 +32,8 @@ public class Coordinate {
     protected Coordinate parent=null;
     
     protected int distance=Integer.MAX_VALUE;
+    
+    protected List<Coordinate> pa=new ArrayList<Coordinate>();
 
     /**
      * Construct coordinate (r, c).
@@ -101,6 +103,16 @@ public class Coordinate {
 	}
 	
 	
+
+
+	public List<Coordinate> getPa() {
+		return pa;
+	}
+
+
+	public void setPa(List<Coordinate> pa) {
+		this.pa = pa;
+	}
 
 
 	public boolean getImpassable() { return isImpassable; }

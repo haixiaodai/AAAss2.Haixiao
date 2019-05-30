@@ -24,6 +24,7 @@ public class TestCase {
     	map.cells=cells;
     	List<Coordinate> originCells=new ArrayList<Coordinate>();
     	List<Coordinate> desCells=new ArrayList<Coordinate>();
+    	List<Coordinate> waypointCells=new ArrayList<Coordinate>();
     	originCells.add(new Coordinate(2,0));
     	desCells.add(new Coordinate(0,3));
     	map.originCells=originCells;
@@ -43,6 +44,9 @@ public class TestCase {
     	map.cells[0][2].setTerrainCost(8);
     	map.sizeC=7;
     	map.sizeR=7;
+    	waypointCells.add(new Coordinate(6,1));
+    	waypointCells.add(new Coordinate(4,6));
+    	map.waypointCells=waypointCells;
     	DijkstraPathFinder d=new DijkstraPathFinder(map);
     	d.findPath();
 	}
