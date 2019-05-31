@@ -63,85 +63,14 @@ public class DijkstraPathFinder implements PathFinder
     	Collections.reverse(path);
     	return path;
     	}
-//    	else {
-//        	List<Coordinate> returned=new ArrayList<Coordinate>();
-//        	map.waypointCells.add(map.cells[map.destCells.get(0).getRow()][map.destCells.get(0).getColumn()]);
-//        	while(map.waypointCells.size()>0) {
-//        		Coordinate tem=null;
-//            	map.cells[map.originCells.get(0).getRow()][map.waypointCells.get(0).getColumn()].setDistance(0);
-//            	for(int i=0;i<map.sizeR;i++) {
-//            		for(int k=0;k<map.sizeC;k++) {
-//            			if(!map.cells[i][k].getImpassable()) {
-//            			unmarked.add(map.cells[i][k]);
-//            			}
-//            		}
-//            	}
-//            	while(!unmarked.isEmpty()) {
-//            		tem=findsmallest();
-//            		unmarked.remove(tem);
-//            		if(tem.equals(map.cells[map.waypointCells.get(0).getRow()][map.waypointCells.get(0).getColumn()])) {
-//            			break;
-//            		}
-//            		else {
-//            			for(Coordinate c2:findneighbours(tem)) {
-//            				if(unmarked.contains(c2)) {
-//            					int newdis=tem.getDistance()+c2.getTerrainCost();
-//            					if(newdis<c2.getDistance()) {
-//            						c2.setDistance(newdis);
-//            						map.cells[c2.getRow()][c2.getColumn()].setDistance(newdis);
-//            						c2.setParent(tem);
-//            						map.cells[c2.getRow()][c2.getColumn()].setParent(tem);
-//            						map.cells[c2.getRow()][c2.getColumn()]=c2;
-//            					}
-//            				}
-//            			}
-//            		}
-//            	}
-//            	Coordinate tem2=map.cells[map.waypointCells.get(0).getRow()][map.waypointCells.get(0).getColumn()];
-//            	while(tem2!=null&&tem2!=map.cells[map.originCells.get(0).getRow()][map.originCells.get(0).getColumn()]) {
-//            		returned.add(tem2);
-//            		tem2=map.cells[tem2.getParent().getRow()][tem2.getParent().getColumn()];
-//            	}
-//            	returned.add(map.cells[map.originCells.get(0).getRow()][map.originCells.get(0).getColumn()]);
-//            	map.originCells.remove(0);
-//            	map.originCells.add(0, map.cells[map.waypointCells.get(0).getRow()][map.waypointCells.get(0).getColumn()]);
-//            	map.waypointCells.remove(0);
-//        	}
-//        	Collections.reverse(returned);
-//        	return returned;
-//    	}
-//    	else {
-//    		List<Coordinate> tobesorted=new ArrayList<Coordinate>();
-//    		while(map.waypointCells.size()>0) {
-//    			taskd(map.cells[map.originCells.get(0).getRow()][map.originCells.get(0).getColumn()],map.cells[map.waypointCells.get(0).getRow()][map.waypointCells.get(0).getColumn()]);
-//    			tobesorted.add(map.cells[map.waypointCells.get(0).getRow()][map.waypointCells.get(0).getColumn()]);
-//    			map.waypointCells.remove(0);
-//    		}
-//    		Collections.sort(tobesorted, new Comparator<Coordinate>() {
-//
-//				@Override
-//				public int compare(Coordinate o1, Coordinate o2) {
-//					// TODO Auto-generated method stub
-//					return o1.getDistance()-o2.getDistance();
-//				}
-//    			
-//    		});
-//    		for(int i=0;i<tobesorted.size();i++) {
-//    			path.addAll(tobesorted.get(i).getPa());
-//    		}
-//    	}
+
     	else {
-//    		map.waypointCells.add(0,map.cells[map.originCells.get(0).getRow()][map.originCells.get(0).getColumn()]);
-//    		map.waypointCells.add(new Coordinate(map.destCells.get(0).getRow(),map.destCells.get(0).getColumn()));
     		Coordinate small=map.cells[map.originCells.get(0).getRow()][map.originCells.get(0).getColumn()];
-//    		path.addAll(small.getPa());
     		while(map.waypointCells.size()>0) {
     			small=findsmallestpoint(map.cells[small.getRow()][small.getColumn()]);
     			path.addAll(small.getPa());
     			map.waypointCells.remove(small);
     		}
-//    		map.waypointCells.add(new Coordinate(map.destCells.get(0).getRow(),map.destCells.get(0).getColumn()));
-//    		Coordinate small2=findsmallestpoint(map.waypointCells.get(0));
     		path.addAll(lastd(small));
     		return path;
     	}
@@ -205,48 +134,6 @@ public class DijkstraPathFinder implements PathFinder
     	});
     	return neighbours;
     }
-    
-//    public void taskd(Coordinate ori,Coordinate des){
-//    	List<Coordinate> returned=new ArrayList<Coordinate>();
-//    		Coordinate tem=null;
-//        	map.cells[map.originCells.get(0).getRow()][map.originCells.get(0).getColumn()].setDistance(0);
-//        	for(int i=0;i<map.sizeR;i++) {
-//        		for(int k=0;k<map.sizeC;k++) {
-//        			if(!map.cells[i][k].getImpassable()) {
-//        			unmarked.add(map.cells[i][k]);
-//        			}
-//        		}
-//        	}
-//        	while(!unmarked.isEmpty()) {
-//        		tem=findsmallest();
-//        		unmarked.remove(tem);
-//        		if(tem.equals(map.cells[map.waypointCells.get(0).getRow()][map.waypointCells.get(0).getColumn()])) {
-//        			break;
-//        		}
-//        		else {
-//        			for(Coordinate c2:findneighbours(tem)) {
-//        				if(unmarked.contains(c2)) {
-//        					int newdis=tem.getDistance()+c2.getTerrainCost();
-//        					if(newdis<c2.getDistance()) {
-//        						c2.setDistance(newdis);
-//        						map.cells[c2.getRow()][c2.getColumn()].setDistance(newdis);
-//        						c2.setParent(tem);
-//        						map.cells[c2.getRow()][c2.getColumn()].setParent(tem);
-//        						map.cells[c2.getRow()][c2.getColumn()]=c2;
-//        					}
-//        				}
-//        			}
-//        		}
-//        	}
-//        	Coordinate tem2=map.cells[map.waypointCells.get(0).getRow()][map.waypointCells.get(0).getColumn()];
-//        	System.out.println(tem2.getParent());
-//        	while(tem2!=null&&tem2!=map.cells[map.originCells.get(0).getRow()][map.originCells.get(0).getColumn()]) {
-//        		returned.add(tem2);
-//        		tem2=map.cells[tem2.getParent().getRow()][tem2.getParent().getColumn()];
-//        	}
-//        	returned.add(map.originCells.get(0));
-//        	map.cells[map.waypointCells.get(0).getRow()][map.waypointCells.get(0).getColumn()].setPa(returned);
-//    }
 
     public Coordinate findsmallestpoint(Coordinate ori) {
     	for(int a=0;a<map.waypointCells.size();a++) {
@@ -266,43 +153,6 @@ public class DijkstraPathFinder implements PathFinder
     		newmap.originCells.add(new Coordinate(ori.getRow(),ori.getColumn()));
     		newmap.destCells=new ArrayList<Coordinate>();
     		newmap.destCells.add(newmap.cells[map.waypointCells.get(a).getRow()][map.waypointCells.get(a).getColumn()]);
-//    		Coordinate tem=null;
-//        	newmap.cells[newmap.originCells.get(0).getRow()][newmap.originCells.get(0).getColumn()].setDistance(0);
-//        	for(int i=0;i<newmap.sizeR;i++) {
-//        		for(int k=0;k<newmap.sizeC;k++) {
-//        			if(!newmap.cells[i][k].getImpassable()) {
-//        			newunmarked.add(newmap.cells[i][k]);
-//        			}
-//        		}
-//        	}
-//        	while(!newunmarked.isEmpty()) {
-//        		tem=findsmallest(newunmarked);
-//        		newunmarked.remove(tem);
-//        		if(tem.equals(map.cells[newmap.destCells.get(0).getRow()][newmap.destCells.get(0).getColumn()])) {
-//        			break;
-//        		}
-//        		else {
-//        			for(Coordinate c2:findneighbours(tem,newmap)) {
-//        				if(newunmarked.contains(c2)) {
-//        					int newdis=tem.getDistance()+c2.getTerrainCost();
-//        					if(newdis<c2.getDistance()) {
-//        						c2.setDistance(newdis);
-//        						newmap.cells[c2.getRow()][c2.getColumn()].setDistance(newdis);
-//        						c2.setParent(tem);
-//        						newmap.cells[c2.getRow()][c2.getColumn()].setParent(tem);
-//        						newmap.cells[c2.getRow()][c2.getColumn()]=c2;
-//        					}
-//        				}
-//        			}
-//        		}
-//        	}
-//        	Coordinate tem2=newmap.cells[newmap.destCells.get(0).getRow()][newmap.destCells.get(0).getColumn()];
-//        	while(tem2!=null&&tem2!=newmap.cells[ori.getRow()][ori.getColumn()]) {
-//        		newpath.add(tem2);
-//        		tem2=newmap.cells[tem2.getParent().getRow()][tem2.getParent().getColumn()];
-//        	}
-//        	newpath.add(newmap.originCells.get(0));
-//        	Collections.reverse(newpath);
     		List<Coordinate> newpath = insideloop(newmap);
         	newmap.cells[newmap.originCells.get(0).getRow()][newmap.originCells.get(0).getColumn()].setPa(newpath);
         	map.waypointCells.get(a).setPa(newpath);
@@ -340,8 +190,6 @@ public class DijkstraPathFinder implements PathFinder
     		newmap.destCells=new ArrayList<Coordinate>();
     		newmap.destCells.add(newmap.cells[map.destCells.get(0).getRow()][map.destCells.get(0).getColumn()]);
     		List<Coordinate> newpath=insideloop(newmap);
-//    		newmap.cells[newmap.originCells.get(0).getRow()][newmap.originCells.get(0).getColumn()].setPa(newpath);
-//        	map.cells[map.destCells.get(0).getRow()][map.destCells.get(0).getColumn()].setPa(newpath);
     		return newpath;
     }
     
